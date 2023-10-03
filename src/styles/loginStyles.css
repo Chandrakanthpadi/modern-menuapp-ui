@@ -18,7 +18,7 @@
 }
 
 .login-box {
-  width: max(90%, 30vw);
+  width: min(90%, 25rem);
   /* padding: 0 1rem; */
 }
 
