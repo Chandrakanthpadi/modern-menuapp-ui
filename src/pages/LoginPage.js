@@ -5,7 +5,7 @@ import { useRestaurantContext } from "../store/RestaurantContextProvider";
 import "../styles/loginStyles.css";
 
 function LoginPage() {
-  const { setRestaurant } = useRestaurantContext();
+  const { setRestaurant, setCategory, restaurant } = useRestaurantContext();
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   const uname = useRef();
@@ -26,6 +26,14 @@ function LoginPage() {
         if ((data.status = 200)) {
           setRestaurant(data.data);
           setLoginSuccess(true);
+          axiosClient
+            .get(
+              `/api/v1/restaurnat/category?restaurantId=${data.data.restaurantId}`
+            )
+            .then((data) => {
+              console.log(data);
+              setCategory(data.data);
+            });
         }
       });
   };

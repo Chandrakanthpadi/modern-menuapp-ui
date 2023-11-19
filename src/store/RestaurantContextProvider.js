@@ -12,15 +12,26 @@ export const RestaurantContextProvider = ({ children }) => {
     return JSON.parse(stored);
   });
 
+  const [category, setCategory] = useState(() => {
+    const stored = localStorage.getItem("category");
+    return JSON.parse(stored);
+  });
+
   useEffect(() => {
     localStorage.setItem("restaurant", JSON.stringify(restaurant));
   }, [restaurant]);
+
+  useEffect(() => {
+    localStorage.setItem("category", JSON.stringify(category));
+  }, [category]);
 
   return (
     <RestaurantContext.Provider
       value={{
         restaurant,
+        category,
         setRestaurant,
+        setCategory,
       }}
     >
       {children}

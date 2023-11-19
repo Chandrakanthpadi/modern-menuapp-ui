@@ -9,6 +9,7 @@ function RegisterPage() {
   const restaurantNameD = useRef();
   const addressD = useRef();
   const contactD = useRef();
+  const color = useRef();
 
   const performRegister = (e) => {
     e.preventDefault();

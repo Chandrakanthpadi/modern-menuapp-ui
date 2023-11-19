@@ -94,6 +94,7 @@ input {
   padding: 3rem;
   border-radius: 0.4rem;
   background-color: #e0dfd5;
+  background-color: var(--primary);
   height: auto;
   margin: 0 auto;
   max-width: 64;

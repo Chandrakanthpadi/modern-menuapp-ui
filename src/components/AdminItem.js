@@ -4,36 +4,38 @@ import axiosClient from "../API/axiosClient";
 import { useRestaurantContext } from "../store/RestaurantContextProvider";
 import { type } from "@testing-library/user-event/dist/type";
 
-function AdminItem({ name, price, status, id, type, categoryCurent, refresh }) {
-  const [renderAgain, setRenderAgain] = useState(true);
+function AdminItem({ name, price, status, id, categoryCurent, type, refresh }) {
   const [showEditModal, setShowEditModal] = useState(false);
-
-  const [localStatus, setLocaStatus] = useState(status);
-  const { restaurant } = useRestaurantContext();
+  const { restaurant, category } = useRestaurantContext();
   const [typeC, setTypeC] = useState("Veg");
-  const [CName, setCName] = useState(categoryCurent);
-  const [category, setCategory] = useState([]);
+  // const [CName, setCName] = useState(category);
+  const [currentCategory, setCurrentCategory] = useState(categoryCurent);
   const [show, setShow] = useState(false);
+  const [itemStatus, setItemStatus] = useState(status);
 
   const iName = useRef();
   const rate = useRef();
   const cName = useRef();
 
-  useEffect(() => {
-    axiosClient
-      .get(
-        `/api/v1/restaurnat/category?restaurantId=${restaurant.restaurantId}`
-      )
-      .then((data) => {
-        setCategory(data.data);
-        if (data.data.length == 0) setShow(true);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axiosClient
+  //     .get(
+  //       `/api/v1/restaurnat/category?restaurantId=${restaurant.restaurantId}`
+  //     )
+  //     .then((data) => {
+  //       setCategory(data.data);
+  //       if (data.data.length == 0) setShow(true);
+  //     });
+  // }, []);
 
   const changeStatus = () => {
-    console.log("Hello");
-    axiosClient.patch(`/api/v1/item/notify?itemId=${id}`, {});
-    window.location.reload(true);
+    axiosClient.patch(`/api/v1/item/notify?itemId=${id}`, {}).then((data) => {
+      if ((data.status = 200)) {
+        refresh((val) => !val);
+        setItemStatus((status) => !status);
+      }
+    });
+    // window.location.reload(true);
     // setLocaStatus((st) => !st);
   };
 
@@ -43,7 +45,7 @@ function AdminItem({ name, price, status, id, type, categoryCurent, refresh }) {
 
   const onCategoryChange = (e) => {
     e.target.value == "Other" ? setShow(true) : setShow(false);
-    setCName(e.target.value);
+    setCurrentCategory(e.target.value);
   };
   const onTypeChange = (e) => {
     setTypeC(e.target.value);
@@ -62,7 +64,8 @@ function AdminItem({ name, price, status, id, type, categoryCurent, refresh }) {
           price: rate.current.value,
           type: typeC,
           restaurantId: restaurant.restaurantId,
-          categoryName: CName === "Other" ? cName.current.value : CName,
+          categoryName:
+            currentCategory === "Other" ? cName.current.value : currentCategory,
         })
       )
       .then((data) => {
@@ -85,7 +88,7 @@ function AdminItem({ name, price, status, id, type, categoryCurent, refresh }) {
           price: rate.current.value,
           type: typeC,
           restaurantId: restaurant.restaurantId,
-          categoryName: CName,
+          categoryName: currentCategory,
         }),
       })
       .then((data) => {
@@ -96,9 +99,11 @@ function AdminItem({ name, price, status, id, type, categoryCurent, refresh }) {
       });
   };
 
+  // console.log(category);
+
   return (
     <div>
-      <div className={localStatus == true ? "item" : "item disable"}>
+      <div className={status == true ? "item" : "item disable"}>
         <div className="item-block" onClick={showModal}>
           <div className="item-box">
             <div
@@ -120,7 +125,7 @@ function AdminItem({ name, price, status, id, type, categoryCurent, refresh }) {
             <div>{price}</div>
           </div>
         </div>
-        <Toggle onClick={changeStatus} toggled={status}></Toggle>
+        <Toggle onClick={changeStatus} toggled={itemStatus}></Toggle>
       </div>
       {showEditModal ? (
         <div className="admin-login-wrapper">
@@ -170,10 +175,10 @@ function AdminItem({ name, price, status, id, type, categoryCurent, refresh }) {
             <select
               onChange={onCategoryChange}
               className="login-item"
-              defaultValue={categoryCurent}
+              defaultValue={currentCategory}
             >
               {category.map((item) => {
-                return <option>{item}</option>;
+                return <option key={item}>{item}</option>;
               })}
               <option>Other</option>
             </select>

@@ -2,10 +2,9 @@ import { useState } from "react";
 import "../styles/CommonStyle.css";
 
 export const Toggle = ({ toggled, onClick }) => {
-  const [isToggled, toggle] = useState(toggled);
+  const [isToggled, setToggle] = useState(toggled);
 
   const callback = () => {
-    toggle(!isToggled);
     onClick(!isToggled);
   };
 

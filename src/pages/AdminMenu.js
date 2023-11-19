@@ -21,31 +21,28 @@ function AdminMenu() {
   const [viewQR, setViewQR] = useState(false);
   const [url, setUrl] = useState("");
 
-  const [restaurantDetails, setrestaurantDetails] = useState([]);
-
   useEffect(() => {
     const name = restaurant.restaurantName;
     name.replace(" ", "%20");
     setUrl(`http://192.168.1.5:3000/restaurant/${name}`);
 
-    axiosClient
-      .get(`/api/v1/menu?restaurantName=${restaurant.restaurantName}`)
-      .then((data) => {
-        setMenuData(Object.entries(data.data));
-      });
-
-    axiosClient
-      .get(`/api/v1/restaurnat?restaurantName=${restaurant.restaurantName}`)
-      .then((data) => {
-        console.log(data.data);
-        setrestaurantDetails(data.data);
-      });
+    // Big Problem
+    setTimeout(() => {
+      // console.log("Modern Menu");
+      document.documentElement.style.setProperty("--hbg", "#000");
+      axiosClient
+        .get(`/api/v1/menu?restaurantName=${restaurant.restaurantName}`)
+        .then((data) => {
+          setMenuData(Object.entries(data.data));
+        });
+    }, 500);
   }, [refresh]);
 
   const viewQRfunction = () => {
     setViewQR((prev) => !prev);
   };
 
+  // Need to customize the QR according to the colors.
   const qrcode = (
     <QRCodeCanvas
       id="qrCode"
@@ -62,12 +59,12 @@ function AdminMenu() {
     <div className="menu">
       <div className="restaurant-title">
         <Link
-          to={`/restaurant/${restaurantDetails.restaurantName}`}
+          to={`/restaurant/${restaurant.restaurantName}`}
           className="login-reg"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <h1>{restaurantDetails.restaurantName}</h1>
+          <h1>{restaurant.restaurantName}</h1>
         </Link>
         <button onClick={viewQRfunction} className="logout-btn">
           View QR
@@ -96,7 +93,13 @@ function AdminMenu() {
       </Link>
 
       {menuData.map((data) => {
-        return <AdminCategoryList category={data} refresh={setRefresh} />;
+        return (
+          <AdminCategoryList
+            category={data}
+            refresh={setRefresh}
+            key={data[0]}
+          />
+        );
       })}
     </div>
   ) : (
