@@ -7,12 +7,19 @@ function AdminCategoryList({ category, refresh, showCategory }) {
   return (
     <div className="menu-category">
       <h2
-        className={showCategory ? "menuh active" : "menuh"}
+        className="menuh"
         onClick={() => {
           setShowCategoryState((value) => !value);
         }}
       >
         {category[0]}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          className={!showCategoryState ? "icon" : "icon iconactive"}
+        >
+          <path d="M12 16L6 10H18L12 16Z"></path>
+        </svg>
       </h2>
 
       {showCategoryState ? (

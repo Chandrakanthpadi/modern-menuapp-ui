@@ -16,10 +16,18 @@
   top: 0;
   z-index: 100;
   margin-top: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.menuh .active {
-  background-color: red;
+.menuh .icon {
+  fill: #000;
+  width: 32px;
+  height: 32px;
+}
+.iconactive {
+  transform: rotate(180deg);
 }
 .item {
   padding: 0.2rem 0;
@@ -43,8 +51,12 @@
 
 .restaurant-title h1 {
   text-align: center;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 0.4rem;
+  margin-bottom: 0.2rem;
+}
+
+.res {
+  margin-bottom: 1.4rem;
 }
 
 .tag {

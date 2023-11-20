@@ -40,7 +40,6 @@
 }
 
 .add {
-  margin-bottom: 1rem;
   width: 100%;
   background-color: var(--primary);
   font-weight: 700;
@@ -76,6 +75,12 @@
   height: 18px;
   transition: 500ms;
 }
+
+.location {
+  fill: #e0dfd5;
+  width: 18px;
+  height: 18px;
+}
 .licon {
   position: relative;
   bottom: -1.2px;
@@ -99,4 +104,16 @@
 .price svg {
   position: relative;
   bottom: -1.2px;
+}
+
+.res_detail {
+  color: #e0dfd5;
+}
+
+.res_block {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  align-items: center;
+  margin-bottom: 0.4rem;
 }
