@@ -7,7 +7,7 @@ import { Link, Navigate } from "react-router-dom";
 import { QRCodeCanvas } from "qrcode.react";
 
 function AdminMenu() {
-  const { restaurant } = useRestaurantContext();
+  const { restaurant, setRestaurant } = useRestaurantContext();
 
   const [refresh, setRefresh] = useState(false);
   const [loggedIn, setLoggedIn] = useState(true);
@@ -44,8 +44,11 @@ function AdminMenu() {
       .patch(
         `/api/v1/restaurnat/notify?restaurantName=${restaurant.restaurantName}`
       )
-      .then((data) => {
+      .then(() => {
         setStatus((pre) => !pre);
+        const newRes = { ...restaurant };
+        newRes.isOpen = status;
+        setRestaurant(newRes);
       });
   };
 

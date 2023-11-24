@@ -24,6 +24,7 @@ function LoginPage() {
       )
       .then((data) => {
         if ((data.status = 200)) {
+          console.log(data.data);
           setRestaurant(data.data);
           setLoginSuccess(true);
           axiosClient
