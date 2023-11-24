@@ -46,11 +46,14 @@ function AdminMenu() {
       )
       .then(() => {
         setStatus((pre) => !pre);
-        const newRes = { ...restaurant };
-        newRes.isOpen = status;
-        setRestaurant(newRes);
       });
   };
+
+  useEffect(() => {
+    const newRes = { ...restaurant };
+    newRes.isOpen = status;
+    setRestaurant(newRes);
+  }, [status]);
 
   const viewQRfunction = () => {
     setViewQR((prev) => !prev);
