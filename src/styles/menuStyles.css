@@ -1,6 +1,6 @@
 .menu {
   max-width: 24rem;
-  margin: 1rem auto;
+  margin: 0 auto;
   padding: 1rem 0.6rem;
 }
 
@@ -55,8 +55,16 @@
   margin-bottom: 0.2rem;
 }
 
+.active {
+  background-color: #52b788;
+}
+
+.closed {
+  background-color: #b75252;
+}
+
 .res {
-  margin-bottom: 0.6rem;
+  margin: 0.8rem 0;
 }
 
 .tag {
@@ -98,4 +106,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
+}
+
+.status {
+  color: #e8e9eb;
 }

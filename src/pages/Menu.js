@@ -29,7 +29,9 @@ function Menu() {
   return (
     <div className="menu">
       <div className="restaurant-title">
-        <h1>{restaurantDetails.restaurantName}</h1>
+        <h1 className={restaurantDetails.isOpen ? "active" : "closed"}>
+          {restaurantDetails.restaurantName}
+        </h1>
         <div className="res">
           <div className="res_block">
             <svg

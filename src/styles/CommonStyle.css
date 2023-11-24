@@ -65,6 +65,17 @@
   color: #e8e9eb;
 }
 
+.action-btn {
+  padding: 0.6rem 2rem;
+  margin-bottom: 0.4rem;
+  background-color: #313638;
+  box-shadow: none;
+  border: none;
+  color: #e8e9eb;
+  border: 1px solid #e8e9eb;
+  margin: 0.4rem 0.1rem;
+}
+
 .logout-btn:hover {
   cursor: pointer;
 }
@@ -116,5 +127,5 @@
   justify-content: center;
   gap: 0.4rem;
   align-items: center;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.2rem;
 }

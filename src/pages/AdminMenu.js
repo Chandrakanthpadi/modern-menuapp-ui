@@ -18,13 +18,14 @@ function AdminMenu() {
   }, []);
 
   const [menuData, setMenuData] = useState([]);
+  const [status, setStatus] = useState(restaurant.isOpen);
   const [viewQR, setViewQR] = useState(false);
   const [url, setUrl] = useState("");
 
   useEffect(() => {
     const name = restaurant.restaurantName;
     name.replace(" ", "%20");
-    setUrl(`http://192.168.1.5:3000/restaurant/${name}`);
+    setUrl(`http://54.187.252.65:3000/restaurant/${name}`);
 
     // Big Problem
     setTimeout(() => {
@@ -37,6 +38,16 @@ function AdminMenu() {
         });
     }, 500);
   }, [refresh]);
+
+  const changeStatus = () => {
+    axiosClient
+      .patch(
+        `/api/v1/restaurnat/notify?restaurantName=${restaurant.restaurantName}`
+      )
+      .then((data) => {
+        setStatus((pre) => !pre);
+      });
+  };
 
   const viewQRfunction = () => {
     setViewQR((prev) => !prev);
@@ -65,7 +76,9 @@ function AdminMenu() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <h1>{restaurant.restaurantName}</h1>
+          <h1 className={status ? "active" : "closed"}>
+            {restaurant.restaurantName}
+          </h1>
         </Link>
         <div className="res">
           <div className="res_block">
@@ -93,20 +106,29 @@ function AdminMenu() {
             </div>
           </div>
         </div>
-        <button onClick={viewQRfunction} className="logout-btn">
-          View QR
-        </button>
+        <div>
+          <button onClick={viewQRfunction} className="action-btn">
+            View QR
+          </button>
 
-        {viewQR ? <div className="qr">{qrcode}</div> : <></>}
-
-        <button
-          onClick={() => {
-            setLoggedIn(false);
-          }}
-          className="logout-btn"
-        >
-          Logout
-        </button>
+          {viewQR ? <div className="qr">{qrcode}</div> : <></>}
+          <button
+            onClick={() => {
+              changeStatus();
+            }}
+            className="action-btn"
+          >
+            {status ? "Close" : "Open"}
+          </button>
+          <button
+            onClick={() => {
+              setLoggedIn(false);
+            }}
+            className="action-btn"
+          >
+            Logout
+          </button>
+        </div>
       </div>
       <Link to="/admin/add" className="link add">
         <svg
