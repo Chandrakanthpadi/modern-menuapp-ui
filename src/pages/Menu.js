@@ -13,13 +13,13 @@ function Menu() {
 
   useEffect(() => {
     axiosClient
-      .get(`/api/v1/menu?restaurantName=${params.restaurantName}`)
+      .get(`/api/v1/restaurnat/menu?restaurantId=${params.restaurantId}`)
       .then((data) => {
         setMenuData(Object.entries(data.data));
       });
 
     axiosClient
-      .get(`/api/v1/restaurnat?restaurantName=${params.restaurantName}`)
+      .get(`/api/v1/restaurnat/get?restaurantId=${params.restaurantId}`)
       .then((data) => {
         console.log(data.data);
         setrestaurantDetails(data.data);

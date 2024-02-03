@@ -66,6 +66,7 @@
 }
 
 .action-btn {
+  flex-grow: 1;
   padding: 0.6rem 2rem;
   margin-bottom: 0.4rem;
   background-color: #313638;

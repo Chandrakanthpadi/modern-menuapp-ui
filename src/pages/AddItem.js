@@ -38,22 +38,24 @@ function AddItem() {
   const performLogin = (e) => {
     e.preventDefault();
 
-    axiosClient
-      .post(
-        "/api/v1/item/add",
-        JSON.stringify({
-          itemName: iName.current.value,
-          price: rate.current.value,
-          type: typeC,
-          restaurantId: restaurant.restaurantId,
-          categoryName: CName === "Other" ? cName.current.value : CName,
-        })
-      )
-      .then((data) => {
-        if ((data.status = 200)) {
-          setAddSuccess(true);
-        }
-      });
+    const item = {
+      itemName: iName.current.value,
+      price: rate.current.value,
+      type: typeC,
+    };
+    let addRequest = JSON.stringify({
+      restaurantId: restaurant.restaurantId,
+      categoryName: CName === "Other" ? cName.current.value : CName,
+      items: [item],
+    });
+
+    console.log(addRequest);
+
+    axiosClient.post("/api/v1/item/add", addRequest).then((data) => {
+      if ((data.status = 200)) {
+        setAddSuccess(true);
+      }
+    });
   };
 
   return (

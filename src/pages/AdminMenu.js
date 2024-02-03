@@ -32,7 +32,7 @@ function AdminMenu() {
       // console.log("Modern Menu");
       document.documentElement.style.setProperty("--hbg", "#000");
       axiosClient
-        .get(`/api/v1/menu?restaurantName=${restaurant.restaurantName}`)
+        .get(`/api/v1/restaurnat/menu?restaurantId=${restaurant.restaurantId}`)
         .then((data) => {
           setMenuData(Object.entries(data.data));
         });
@@ -42,7 +42,7 @@ function AdminMenu() {
   const changeStatus = () => {
     axiosClient
       .patch(
-        `/api/v1/restaurnat/notify?restaurantName=${restaurant.restaurantName}`
+        `/api/v1/restaurnat/notify?restaurantId=${restaurant.restaurantId}`
       )
       .then(() => {
         setStatus((pre) => !pre);
@@ -77,7 +77,7 @@ function AdminMenu() {
     <div className="menu">
       <div className="restaurant-title">
         <Link
-          to={`/restaurant/${restaurant.restaurantName}`}
+          to={`/restaurant/${restaurant.restaurantId}`}
           className="login-reg"
           target="_blank"
           rel="noopener noreferrer"
@@ -112,7 +112,7 @@ function AdminMenu() {
             </div>
           </div>
         </div>
-        <div>
+        <div style={{ display: "flex" }}>
           <button onClick={viewQRfunction} className="action-btn">
             View QR
           </button>

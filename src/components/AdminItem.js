@@ -56,18 +56,20 @@ function AdminItem({ name, price, status, id, categoryCurent, type, refresh }) {
 
     console.log(itemId);
 
+    const item = {
+      itemName: iName.current.value,
+      price: rate.current.value,
+      type: typeC,
+    };
+    let updateRequest = JSON.stringify({
+      restaurantId: restaurant.restaurantId,
+      categoryName:
+        currentCategory === "Other" ? cName.current.value : currentCategory,
+      items: [item],
+    });
+
     axiosClient
-      .patch(
-        `/api/v1/item/update?itemId=${itemId}`,
-        JSON.stringify({
-          itemName: iName.current.value,
-          price: rate.current.value,
-          type: typeC,
-          restaurantId: restaurant.restaurantId,
-          categoryName:
-            currentCategory === "Other" ? cName.current.value : currentCategory,
-        })
-      )
+      .patch(`/api/v1/item/update?itemId=${itemId}`, updateRequest)
       .then((data) => {
         if ((data.status = 200)) {
           setShowEditModal((val) => !val);
@@ -79,27 +81,13 @@ function AdminItem({ name, price, status, id, categoryCurent, type, refresh }) {
   const deleteItemAction = (e, itemId) => {
     e.preventDefault();
 
-    console.log(itemId);
-
-    axiosClient
-      .delete(`/api/v1/item/remove`, {
-        data: JSON.stringify({
-          itemName: iName.current.value,
-          price: rate.current.value,
-          type: typeC,
-          restaurantId: restaurant.restaurantId,
-          categoryName: currentCategory,
-        }),
-      })
-      .then((data) => {
-        if ((data.status = 200)) {
-          setShowEditModal((val) => !val);
-          refresh((val) => !val);
-        }
-      });
+    axiosClient.delete(`/api/v1/item/delete?itemId=${itemId}`).then((data) => {
+      if ((data.status = 200)) {
+        setShowEditModal((val) => !val);
+        refresh((val) => !val);
+      }
+    });
   };
-
-  // console.log(category);
 
   return (
     <div>
