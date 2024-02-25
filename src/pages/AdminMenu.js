@@ -72,7 +72,6 @@ function AdminMenu() {
     />
   );
 
-  console.log(restaurant.address);
   return loggedIn ? (
     <div className="menu">
       <div className="restaurant-title">

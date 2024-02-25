@@ -7,7 +7,7 @@ import { type } from "@testing-library/user-event/dist/type";
 function AdminItem({ name, price, status, id, categoryCurent, type, refresh }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const { restaurant, category } = useRestaurantContext();
-  const [typeC, setTypeC] = useState("Veg");
+  const [typeC, setTypeC] = useState(type);
   // const [CName, setCName] = useState(category);
   const [currentCategory, setCurrentCategory] = useState(categoryCurent);
   const [show, setShow] = useState(false);
@@ -48,13 +48,14 @@ function AdminItem({ name, price, status, id, categoryCurent, type, refresh }) {
     setCurrentCategory(e.target.value);
   };
   const onTypeChange = (e) => {
+    console.log(e.target.value);
     setTypeC(e.target.value);
   };
 
   const updateItemAction = (e, itemId) => {
     e.preventDefault();
 
-    console.log(itemId);
+    console.log(typeC);
 
     const item = {
       itemName: iName.current.value,
