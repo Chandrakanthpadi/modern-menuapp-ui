@@ -96,7 +96,7 @@ input {
   background-color: #e0dfd5;
   background-color: var(--primary);
   height: auto;
-  margin: 0 auto;
+  margin: 0.6rem auto;
   max-width: 64;
   width: 100%;
 }

@@ -115,8 +115,6 @@ function AdminMenu() {
           <button onClick={viewQRfunction} className="action-btn">
             View QR
           </button>
-
-          {viewQR ? <div className="qr">{qrcode}</div> : <></>}
           <button
             onClick={() => {
               changeStatus();
@@ -131,9 +129,10 @@ function AdminMenu() {
             }}
             className="action-btn"
           >
-            Logout
+            Logoutttt
           </button>
         </div>
+        {viewQR ? <div className="qr">{qrcode}</div> : <></>}
       </div>
       <Link to="/admin/add" className="link add">
         <svg
